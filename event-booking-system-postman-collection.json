@@ -1,0 +1,915 @@
+{
+	"info": {
+		"_postman_id": "a75efec0-92cb-4671-8fee-c1a88f61f68c",
+		"name": "EBS (Event Booking System) | Harshith",
+		"description": "## API Documentation\n\n### Authentication Endpoints\n\n- `POST /api/register` - User registration\n    \n- `POST /api/login` - User login\n    \n- `POST /api/logout` - User logout\n    \n- `GET /api/me` - Get current user\n    \n\n### Event Endpoints\n\n- `GET /api/events` - List events (with pagination, search, filters)\n    \n- `GET /api/events/{id}` - Get event details\n    \n- `POST /api/events` - Create event (Organizer only)\n    \n- `PUT /api/events/{id}` - Update event (Organizer/Admin)\n    \n- `DELETE /api/events/{id}` - Delete event (Organizer/Admin)\n    \n\n### Ticket Endpoints\n\n- `POST /api/events/{event_id}/tickets` - Create ticket (Organizer only)\n    \n- `PUT /api/tickets/{id}` - Update ticket (Organizer/Admin)\n    \n- `DELETE /api/tickets/{id}` - Delete ticket (Organizer/Admin)\n    \n\n### Booking Endpoints\n\n- `POST /api/tickets/{id}/bookings` - Create booking (Customer)\n    \n- `GET /api/bookings` - Get user's bookings (Customer)\n    \n- `PUT /api/bookings/{id}/cancel` - Cancel booking (Customer)\n    \n\n### Payment Endpoints\n\n- `POST /api/bookings/{id}/payment` - Process payment (Mocked)\n    \n- `GET /api/payments/{id}` - Get payment details",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49097335",
+		"_collection_link": "https://hbhandary19-3898298.postman.co/workspace/e4cb0abe-b51a-49a5-8803-fcd0f7877068/collection/49097335-a75efec0-92cb-4671-8fee-c1a88f61f68c?action=share&source=collection_link&creator=49097335"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3|MoU3PKRmkNdoIBYUod7gKrpiVk74mT6D2avXuRhTd331c1ce",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "John Doe",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "john@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "1234567890",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "customer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3|MoU3PKRmkNdoIBYUod7gKrpiVk74mT6D2avXuRhTd331c1ce",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "wehner.sydnee@example.org",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3|T6Ssfdjw6faF1FIXGSzLzM0fhQUenczecFh9QEjOfe089c4c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/logout",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 3|T6Ssfdjw6faF1FIXGSzLzM0fhQUenczecFh9QEjOfe089c4c",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/me",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Event lists (with pagination & filter)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3|T6Ssfdjw6faF1FIXGSzLzM0fhQUenczecFh9QEjOfe089c4c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/events?page=1&search=nemo",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "search",
+							"value": "nemo"
+						},
+						{
+							"key": "date",
+							"value": "2025-01-15",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "South Austin",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/events/?id=1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "New Music Festival",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Annual music festival with multiple artists",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2025-10-20 18:00:00",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Los Angeles, California",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/events/create",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Updated Music Festival",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Updated description",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "San Francisco, California",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/events/update/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/events/delete/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "VIP",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "150",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/events/1/tickets",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"events",
+						"1",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/tickets/17",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"tickets",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "VIP",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "price",
+							"value": "200",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "150",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/tickets/17",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"tickets",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "quantity",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/tickets/14/bookings",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"tickets",
+						"14",
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List User Booking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bookings",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bookings"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Booking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bookings/14/cancel",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bookings",
+						"14",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Process Payment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bookings/1/payment",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bookings",
+						"1",
+						"payment"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payment Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|FeG1Qmq2WeaFs7ESO3uKSNQyV7z5CgGomfhNznnTbef364c2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/payments/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"payments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		}
+	]
+}
