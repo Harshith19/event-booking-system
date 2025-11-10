@@ -17,7 +17,8 @@ class PreventDoubleBooking
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->route()->named('tickets.bookings.store')) {
+        if ($request->isMethod('POST') && str_contains($request->path(), 'api/tickets/') && str_contains($request->path(), '/bookings')) {
+            // if($request->route()->named('tickets.bookings.store')) {
             $ticketId = $request->route('id');
             $userId = $request->user()->id;
 

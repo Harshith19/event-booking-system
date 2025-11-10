@@ -38,9 +38,9 @@ class BookingConfirmed extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Booking Confirmed - ' . $this->booking->ticket->event->title)
+            ->subject('Booking Confirmed - ' . $this->booking->ticket->event->title ?? '')
             ->line('Your booking has been confirmed!')
-            ->line('Event: ' . $this->booking->ticket->event->title)
+            ->line('Event: ' . $this->booking->ticket->event->title ?? '')
             ->line('Ticket Type: ' . $this->booking->ticket->type)
             ->line('Quantity: ' . $this->booking->quantity)
             ->line('Total Paid: $' . number_format($this->booking->payment->amount, 2))
@@ -57,7 +57,7 @@ class BookingConfirmed extends Notification implements ShouldQueue
     {
         return [
             'booking_id' => $this->booking->id,
-            'event_title' => $this->booking->ticket->event->title,
+            'event_title' => $this->booking->ticket->event->title ?? '',
             'ticket_type' => $this->booking->ticket->type,
             'quantity' => $this->booking->quantity,
             'amount' => $this->booking->payment->amount,
